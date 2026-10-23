@@ -111,7 +111,15 @@ int turnDirection = 20;
 #include <Sabertooth.h>
 #include <MP3Trigger.h>
 #include <Wire.h>
-#include <XBOXRECV.h>
+
+// Controller: Xbox 360 or Joy-Cons. Pick it in ControllerConfig.h.
+#include "ControllerConfig.h"
+#ifdef USE_XBOX360
+  #include <XBOXRECV.h>
+#else
+  #include "JoyConXbox.h"
+  #include "JoyConPairing.h"
+#endif
 
 
 /////////////////////////////////////////////////////////////////
@@ -167,7 +175,17 @@ boolean isHPOn = false;
 
 MP3Trigger mp3Trigger;
 USB Usb;
+#ifdef USE_XBOX360
 XBOXRECV Xbox(&Usb);
+#else
+// Two Joy-Cons that answer like the Xbox receiver: the rest of the sketch keeps calling
+// Xbox.getButtonClick(), Xbox.getAnalogHat() and the rest as it always has.
+BTD Btd(&Usb);
+JoyConController joyLeft(&Btd, JOYCON_LEFT, "LEFT", JOYCON_PAIRING_MODE);
+JoyConController joyRight(&Btd, JOYCON_RIGHT, "RIGHT", JOYCON_PAIRING_MODE);
+JoyConXbox Xbox(&joyLeft, &joyRight);
+JoyConPairing joyPairing(&Btd, &joyLeft, &joyRight);
+#endif
 
 void setup() {
   Serial1.begin(SABERTOOTHBAUDRATE);
@@ -231,11 +249,35 @@ void setup() {
     while (1); //halt
   }
   //Serial.print(F("\r\nXbox Wireless Receiver Library Started"));
+
+#ifdef USE_JOYCON
+  joyLeft.setStickRange(JOYCON_STICK_RANGE);
+  joyRight.setStickRange(JOYCON_STICK_RANGE);
+  Xbox.begin();
+  // Pairing: first boot, Capture or Home held for 5 s, or three resets in a row. Each
+  // step plays a sound. A lambda, so the IDE does not hoist a prototype above the type.
+  joyPairing.begin([](JoyConPairEvent e)
+  {
+    switch (e)
+    {
+      case JCP_STARTED:         mp3Trigger.play(JOYCON_SOUND_STARTED); break;
+      case JCP_PAIRED_ONE:      mp3Trigger.play(JOYCON_SOUND_PAIRED);  break;
+      case JCP_DONE:            mp3Trigger.play(JOYCON_SOUND_DONE);    break;
+      case JCP_TIMEOUT:         mp3Trigger.play(JOYCON_SOUND_TIMEOUT); break;
+      case JCP_HOLD_SYNC_AGAIN: mp3Trigger.play(JOYCON_SOUND_AGAIN);   break;
+    }
+  }, JOYCON_PAIRING_MODE);
+#endif
 }
 
 
 void loop() {
   Usb.Task();
+#ifdef USE_JOYCON
+  Xbox.update();
+  joyPairing.update();
+  Xbox.hold(joyPairing.active());   // while pairing, the droid does not move
+#endif
   // if we're not connected, return so we don't bother doing anything else.
   // set all movement to 0 so if we lose connection we don't have a runaway droid!
   // a restraining bolt and jawa droid caller won't save us here!
