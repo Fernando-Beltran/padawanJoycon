@@ -76,6 +76,8 @@ These Joy-Con files are shared with [ShadowMD Lite](https://github.com/Fernando-
 
 **Check your sticks there.** Joy-Con sticks are known for drift. A small offset is corrected automatically while the stick rests, but a stick that rests far from centre needs replacing: one of our test Joy-Cons rested 35 to 45% off centre.
 
+**Safety: the stick only drives once it has been seen centred.** A worn Joy-Con can rest far off centre (one of ours rested 40% off), which would drive the droid the moment it pairs. So after every connection the stick reads zero until it sits in the centre, and the serial console says why: `JOY-L: stick rests far from centre (held, or drift). Stick off until it centres.` Move the stick and let go; when it centres you get `stick centred, driving again`. A stick that freezes off centre for 2 seconds is switched off the same way. Buttons keep working. What no software can do is tell a stick that rests at 25% and keeps wobbling from a thumb holding it there: **if your stick does not come back to zero in the bench test, replace it** (a spare stick costs a few euros) before driving with it.
+
 ## Credit
 
 padawan360 by Dan Kraus, https://github.com/dankraus/padawan360. The Joy-Con protocol details come from dekuNukem's reverse engineering notes, https://github.com/dekuNukem/Nintendo_Switch_Reverse_Engineering. Thank you both.
