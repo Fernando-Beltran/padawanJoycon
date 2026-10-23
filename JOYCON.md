@@ -56,6 +56,8 @@ The droid only counts the controller as connected when **both** halves are conne
 
 ## What changed in the sketch
 
+**Your own padawan360 sketch?** [MIGRATING_TO_JOYCON.md](MIGRATING_TO_JOYCON.md) walks you through adding the Joy-Cons to it, step by step.
+
 Four small blocks in `padawan360_body_mega_i2c.ino`, all behind `#ifdef`: the includes, the `Xbox` object, starting the Joy-Cons and pairing at the end of `setup()`, and three lines at the top of `loop()`. Every one of the sketch's `Xbox.getButtonClick()`, `Xbox.getAnalogHat()` and other calls is unchanged, because `JoyConXbox.h` answers the same calls the Xbox receiver class does.
 
 | File | What it is |

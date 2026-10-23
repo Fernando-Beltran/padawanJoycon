@@ -1,4 +1,4 @@
-> **padawanJoycon:** this fork adds Nintendo Switch Joy-Con support to the Mega body sketch, alongside the Xbox 360 controller. See [JOYCON.md](JOYCON.md).
+> **padawanJoycon:** this fork adds Nintendo Switch Joy-Con support to the Mega body sketch, alongside the Xbox 360 controller. See [JOYCON.md](JOYCON.md). Already running your own padawan360? [MIGRATING_TO_JOYCON.md](MIGRATING_TO_JOYCON.md) adds the Joy-Cons to it step by step.
 
 # Padawan360
 
