@@ -2,7 +2,7 @@
 
 This is Dan Kraus's [padawan360](https://github.com/dankraus/padawan360), unchanged in behaviour, with one addition: the body sketch for the **Arduino Mega** can be driven with a pair of **Nintendo Switch Joy-Cons** instead of an Xbox 360 controller.
 
-**Why.** The Xbox 360 wireless receiver has not been made for years, and the cheap "compatible" receivers often do not work with padawan360. Joy-Cons are still sold everywhere, charge over USB-C, and talk plain Bluetooth. Held together, the two halves have every button of an Xbox 360 controller, so nothing in padawan360's button map has to move.
+**Why.** The Xbox 360 wireless receiver has not been made for years, and the cheap "compatible" receivers often do not work with padawan360. Joy-Cons are still sold everywhere and talk plain Bluetooth. Held together, the two halves have every button of an Xbox 360 controller, so nothing in padawan360's button map has to move.
 
 > **Status: bench-tested only.** All 17 buttons and both sticks are checked on the bench with two Joy-Cons. Nothing has been driven on a droid yet. Do the first runs with the wheels off the ground.
 
